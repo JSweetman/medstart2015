@@ -15,7 +15,7 @@ class UserProfile(models.Model):
     specialty = models.CharField(verbose_name = 'specialty', max_length = 50, default='', blank=True)
     ## TODO make drop down
     academic_status = models.CharField(verbose_name = 'academic_status', max_length = 30, default='', blank=True)
-    reputation = models.IntegerField()
+    reputation = models.IntegerField(default=0, blank=True, db_index=True)
 
 
     # Override the __unicode__() method to return out something meaningful!
