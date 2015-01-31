@@ -27,4 +27,4 @@ Medstart 2015
 
 > **Initial Release**
 >
-> Feature set: User login, posting model
+> Feature set: User login, Post Model, Admin set up
