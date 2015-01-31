@@ -1,17 +1,16 @@
 from django.db import models
 from users.models import User
+from .models import Post
 
 # Create your models here.
 class Post(models.Model):
 	# '''Medstart post model'''
-	pass
-	# Post statuses.
+	# Post statuses
 	OPEN, CLOSED, DELETED = range(3)
 	STATUS_CHOICES = [(OPEN, "Open"), (CLOSED, "Closed"), (DELETED, "Deleted")]
 
 	# Post types. Answers should be listed before comments.
 	QUESTION, ANSWER, COMMENT = range(3)
-
 	TYPE_CHOICES = [
 		(QUESTION, "Question"), (ANSWER, "Answer"), (COMMENT, "Comment"),
 	]
@@ -19,18 +18,15 @@ class Post(models.Model):
 	title = models.CharField(max_length=200, null=False)
 
 	# The user that originally created the post.
-	author = models.ForeignKey(User)
+	author = models.ForeignKey(User, related_name='author')
 
- #    # The user that edited the post most recently.
- #    lastedit_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='editor')
-
- #    # Indicates the information value of the post.
+    # Indicates the information value of the post.
  #    rank = models.FloatField(default=0, blank=True)
 
- #    # Post status: open, closed, deleted.
+ 	# post status, i.e. open, answered, or closed
 	status = models.IntegerField(choices=STATUS_CHOICES, default=OPEN)
 
- #    # The type of the post: question, answer, comment.
+    # The type of the post: question, answer, comment.
 	type = models.IntegerField(choices=TYPE_CHOICES, db_index=True)
 
 	# Number of upvotes for the post
@@ -55,43 +51,26 @@ class Post(models.Model):
 	# This is the HTML that the user enters.
 	content = models.TextField(default='')
 
- #    # This is the  HTML that gets displayed.
- #    html = models.TextField(default='')
-
-	# The tag value is the canonical form of the post's tags
-	# tag_val = models.CharField(max_length=100, default="", blank=True)
-
-	# The tag set is built from the tag string and used only for fast filtering
-	# tag_set = models.ManyToManyField(Tag, blank=True, )
-
-	# def add_tags(self, text):
-	# 	text = text.strip()
-	# 	if not text:
-	# 		return
-	# 	# Sanitize the tag value
-	# 	self.tag_val = bleach.clean(text, tags=[], attributes=[], styles={}, strip=True)
-	# 	# Clear old tags
-	# 	self.tag_set.clear()
-	# 	tags = [Tag.objects.get_or_create(name=name)[0] for name in self.parse_tags()]
-	# 	self.tag_set.add(*tags)
-		#self.save()
-
+	# gets body of question
 	@property
 	def as_text(self):
 		"Returns the body of the post after stripping the HTML tags"
 		text = bleach.clean(self.content, tags=[], attributes=[], styles={}, strip=True)
 		return text
 
+	# short peek into post
 	def peek(self, length=300):
 		"A short peek at the post"
 		return self.as_text[:length]
 
+	# get title of the post
 	def get_title(self):
 		if self.status == Post.OPEN:
 			return self.title
 		else:
 			return "(%s) %s" % ( self.get_status_display(), self.title)
 
+	# check if post is open
 	@property
 	def is_open(self):
 		return self.status == Post.OPEN
@@ -101,21 +80,38 @@ class Post(models.Model):
 		delta = const.now() - self.creation_date
 		return delta.days
 
- #    def update_reply_count(self):
- #        "This can be used to set the answer count."
- #        if self.type == Post.ANSWER:
- #            reply_count = Post.objects.filter(parent=self.parent, type=Post.ANSWER, status=Post.OPEN).count()
- #            Post.objects.filter(pk=self.parent_id).update(reply_count=reply_count)
+	def __unicode__(self):
+		return self.title
 
- #    def delete(self, using=None):
- #        # Collect tag names.
- #        tag_names = [t.name for t in self.tag_set.all()]
+SCORES = (
+    (+1, '+1'),
+    (-1, '-1'),
+)
 
- #        # While there is a signal to do this it is much faster this way.
- #        Tag.objects.filter(name__in=tag_names).update(count=F('count') - 1)
+class Vote(models.Model):
+    """
+    A vote on an object by a User.
+    """
+    user = models.ForeignKey(User)
+    post = models.ForeignKey(Post)
+    object_id = models.PositiveIntegerField()
+    object = generic.GenericForeignKey('content_type', 'object_id')
+    vote = models.SmallIntegerField(choices=SCORES)
+    time_stamp = models.DateTimeField(editable=False, default=now)
 
- #        # Remove tags with zero counts.
- #        Tag.objects.filter(count=0).delete()
- #        super(Post, self).delete(using=using)
+    objects = VoteManager()
 
+    class Meta:
+        db_table = 'votes'
+        # One vote per user per object
+        unique_together = (('user', 'content_type', 'object_id'),)
+
+    def __str__(self):
+        return '%s: %s on %s' % (self.user, self.vote, self.object)
+
+    def is_upvote(self):
+        return self.vote == 1
+
+    def is_downvote(self):
+        return self.vote == -1
 

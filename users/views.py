@@ -1,10 +1,8 @@
 from django.shortcuts import render
 from .forms import UserForm, UserProfileForm
 
-def register(request):
-    # Like before, get the request's context.
-    context = RequestContext(request)
 
+def register(request):
     # A boolean value for telling the template whether the registration was successful.
     # Set to False initially. Code changes value to True when registration succeeds.
     registered = False
@@ -13,8 +11,8 @@ def register(request):
     if request.method == 'POST':
         # Attempt to grab information from the raw form information.
         # Note that we make use of both UserForm and UserProfileForm.
-        user_form = UserForm(data=request.POST)
-        profile_form = UserProfileForm(data=request.POST)
+        user_form = UserForm(request.POST)
+        profile_form = UserProfileForm(request.POST, request.FILES)
 
         # If the two forms are valid...
         if user_form.is_valid() and profile_form.is_valid():
@@ -56,7 +54,7 @@ def register(request):
         profile_form = UserProfileForm()
 
     # Render the template depending on the context.
-    return render_to_response(
+    return render(
+            request,
             'users/register.html',
-            {'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
-            context)
+            {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
