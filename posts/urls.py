@@ -8,4 +8,6 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^(?P<id>\d+)/$', views.question_answer),
     url(r'^ask/$', views.ask_question),
+    url(r'^upvote/question/(?P<id>\d+)/$', views.question_upvote),
+	url(r'^downvote/question/(?P<id>\d+)/$', views.question_downvote),
 )

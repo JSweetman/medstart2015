@@ -40,7 +40,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">{{ content }}</a>
+                <a class="navbar-brand" href="/">Ponder</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -75,15 +75,6 @@
 
                 <!-- First Blog Post -->
                {% for question in question_set %}
-               <div class="questionVote pull-left" href="#">
-                        <a href="{{question.upvote}}">
-                            <img class="media-object" src="{% static "img/upArrow.png" %}" style="width:30px; height:30px" alt="">
-                        </a>
-                        <div class="numVotes">{{question.vote_count}} </div>
-                        <a href="{{question.upvote}}">
-                            <img class="media-object" src="{% static "img/downArrow.png" %}" style="width:30px; height:30px" alt="">
-                        </a>
-                </div>
                     <h2>
                         <a href="/posts/{{question.id}}">{{ question.title }}</a>
                     </h2>
