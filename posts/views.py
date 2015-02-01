@@ -3,6 +3,7 @@ from .models import Question, Answer, QVote
 from django.shortcuts import get_object_or_404
 from .forms import QuestionForm, AnswerForm
 from django.http import HttpResponseRedirect
+from django.db import IntegrityError
 
 # Create your views here.
 def question_answer(request, id):
@@ -37,11 +38,17 @@ def ask_question(request):
 
 def question_upvote(request, id):
 	question = Question.objects.get(id=id)
-	QVote.create(request.user, question, 1)
-	return HttpResponseRedirect('/posts/%d' %(question.id))
+	try:
+		QVote.create(request.user, question, 1)
+		return HttpResponseRedirect('/posts/%d' %(question.id))
+	except IntegrityError:
+		return HttpResponseRedirect('/posts/%d' %(question.id))
 
 
-def question_downvote(request):
+def question_downvote(request,id):
 	question = Question.objects.get(id=id)
-	QVote.create(request.user, question, -1)
-	return HttpResponseRedirect('/posts/%d' %(question.id))
+	try:
+		QVote.create(request.user, question, -1)
+		return HttpResponseRedirect('/posts/%d' %(question.id))
+	except IntegrityError:
+		return HttpResponseRedirect('/posts/%d' %(question.id))
