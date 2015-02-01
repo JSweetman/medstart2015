@@ -6,4 +6,5 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'medstart2015.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
+    url(r'^(\d)/$', views.question_answer),
 )

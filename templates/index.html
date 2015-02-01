@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +13,7 @@
     <title>Ponder Home</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="static/css/blog-home.css" rel="stylesheet">
@@ -39,7 +40,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">USER</a>
+                <a class="navbar-brand" href="#">{{ content }}</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -67,43 +68,24 @@
 
             <!-- Blog Entries Column -->
             <div class="col-md-8">
-
                 <h1 class="page-header">
                     Ponder
                     <small>Trending Questions</small>
                 </h1>
 
                 <!-- First Blog Post -->
-                <h2>
-                    <a href="#">QUESTION PLACEHOLDER</a>
-                </h2>
-                <p class="lead">
-                    by <a href="index.php">USER</a>
-                </p>
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM</p>
-                <hr>
-               
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
-                <!-- Second Blog Post -->
-                <h2>
-                    <a href="#">QUESTION PLACEHOLDER</a>
-                </h2>
-                <p class="lead">
-                    by <a href="index.php">USER</a>
-                </p>
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
-                <hr>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, quasi, fugiat, asperiores harum voluptatum tenetur a possimus nesciunt quod accusamus saepe tempora ipsam distinctio minima dolorum perferendis labore impedit voluptates!</p>
-                <!-- Third Blog Post -->
-                <h2>
-                    <a href="#">QUESTION PLACEHOLDER</a>
-                </h2>
-                <p class="lead">
-                    by <a href="index.php">USER</a>
-                </p>
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
-                <hr>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, voluptates, voluptas dolore ipsam cumque quam veniam accusantium laudantium adipisci architecto itaque dicta aperiam maiores provident id incidunt autem. Magni, ratione.</p>
+               {% for question in question_set %}
+                    <h2>
+                        <a href="/posts/{{ question.id }}">{{ question.title }}</a>
+                    </h2>
+                    <p class="lead">
+                        by <a href="index.php">{{ question.author }}</a>
+                    </p>
+                    <p><span class="glyphicon glyphicon-time"></span> {{ question.created }}</p>
+                    <hr>
+                   
+                    <p> {{ question.peek }}</p>
+                {% endfor %}
                 <!-- Pager -->
                 <ul class="pager">
                     <li class="previous">

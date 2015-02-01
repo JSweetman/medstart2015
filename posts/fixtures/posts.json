@@ -1,0 +1,262 @@
+[
+{
+    "fields": {
+        "status": 0,
+        "updated": "2015-02-01T07:32:36.094Z",
+        "author": 2,
+        "created": "2015-02-01T06:59:41.689Z",
+        "has_accepted": false,
+        "comment_count": 0,
+        "content": "What is the most accurate test for myocardial perfusion?",
+        "vote_count": 1,
+        "reply_count": 0,
+        "title": "Myocardial perfusion"
+    },
+    "model": "posts.question",
+    "pk": 1
+},
+{
+    "fields": {
+        "status": 0,
+        "updated": "2015-02-01T06:59:54.720Z",
+        "author": 2,
+        "created": "2015-02-01T06:59:54.721Z",
+        "has_accepted": false,
+        "comment_count": 0,
+        "content": "What is dobutamine stress testing?",
+        "vote_count": 0,
+        "reply_count": 0,
+        "title": "dobutamine stress testing"
+    },
+    "model": "posts.question",
+    "pk": 2
+},
+{
+    "fields": {
+        "status": 0,
+        "updated": "2015-02-01T07:00:05.804Z",
+        "author": 2,
+        "created": "2015-02-01T07:00:05.804Z",
+        "has_accepted": false,
+        "comment_count": 0,
+        "content": "What is dobutamine?",
+        "vote_count": 0,
+        "reply_count": 0,
+        "title": "dobutamine"
+    },
+    "model": "posts.question",
+    "pk": 3
+},
+{
+    "fields": {
+        "status": 0,
+        "updated": "2015-02-01T07:34:57.126Z",
+        "author": 2,
+        "created": "2015-02-01T07:00:37.848Z",
+        "has_accepted": false,
+        "comment_count": 0,
+        "content": "When is dobutamine stress testing used?",
+        "vote_count": 1,
+        "reply_count": 0,
+        "title": "dobutamine stress testing application"
+    },
+    "model": "posts.question",
+    "pk": 4
+},
+{
+    "fields": {
+        "status": 0,
+        "updated": "2015-02-01T07:00:54.319Z",
+        "author": 2,
+        "created": "2015-02-01T07:00:54.320Z",
+        "has_accepted": false,
+        "comment_count": 0,
+        "content": "When do you use coronary angiography?",
+        "vote_count": 0,
+        "reply_count": 0,
+        "title": "coronary angiography use"
+    },
+    "model": "posts.question",
+    "pk": 5
+},
+{
+    "fields": {
+        "updated": "2015-02-01T07:01:23.447Z",
+        "selected": false,
+        "author": 3,
+        "created": "2015-02-01T07:01:23.447Z",
+        "question": 1,
+        "comment_count": 0,
+        "content": "Coronary angiogram",
+        "vote_count": 0,
+        "reply_count": 0
+    },
+    "model": "posts.answer",
+    "pk": 1
+},
+{
+    "fields": {
+        "updated": "2015-02-01T07:01:45.867Z",
+        "selected": false,
+        "author": 4,
+        "created": "2015-02-01T07:01:45.867Z",
+        "question": 1,
+        "comment_count": 0,
+        "content": "TTE",
+        "vote_count": 0,
+        "reply_count": 0
+    },
+    "model": "posts.answer",
+    "pk": 2
+},
+{
+    "fields": {
+        "updated": "2015-02-01T07:01:59.625Z",
+        "selected": false,
+        "author": 3,
+        "created": "2015-02-01T07:01:59.625Z",
+        "question": 2,
+        "comment_count": 0,
+        "content": "A form of exercise tolerance or \"stress\" testing that does not use physical exercise",
+        "vote_count": 0,
+        "reply_count": 0
+    },
+    "model": "posts.answer",
+    "pk": 3
+},
+{
+    "fields": {
+        "updated": "2015-02-01T07:02:12.305Z",
+        "selected": false,
+        "author": 4,
+        "created": "2015-02-01T07:02:12.305Z",
+        "question": 2,
+        "comment_count": 0,
+        "content": "Testing for psychiatric stress",
+        "vote_count": 0,
+        "reply_count": 0
+    },
+    "model": "posts.answer",
+    "pk": 4
+},
+{
+    "fields": {
+        "updated": "2015-02-01T07:02:24.738Z",
+        "selected": false,
+        "author": 3,
+        "created": "2015-02-01T07:02:24.738Z",
+        "question": 3,
+        "comment_count": 0,
+        "content": "A direct acting Agonist at B-1 receptors, which causes inotropic stress",
+        "vote_count": 0,
+        "reply_count": 0
+    },
+    "model": "posts.answer",
+    "pk": 5
+},
+{
+    "fields": {
+        "updated": "2015-02-01T07:02:33.537Z",
+        "selected": false,
+        "author": 4,
+        "created": "2015-02-01T07:02:33.537Z",
+        "question": 3,
+        "comment_count": 0,
+        "content": "A drug that affects the heart",
+        "vote_count": 0,
+        "reply_count": 0
+    },
+    "model": "posts.answer",
+    "pk": 6
+},
+{
+    "fields": {
+        "updated": "2015-02-01T07:02:47.334Z",
+        "selected": false,
+        "author": 3,
+        "created": "2015-02-01T07:02:47.334Z",
+        "question": 4,
+        "comment_count": 0,
+        "content": "When patients cannot exercise on a treadmill. Use in a patient with a history of chest pain who cannot physically exercise.",
+        "vote_count": 0,
+        "reply_count": 0
+    },
+    "model": "posts.answer",
+    "pk": 7
+},
+{
+    "fields": {
+        "updated": "2015-02-01T07:02:58.428Z",
+        "selected": false,
+        "author": 4,
+        "created": "2015-02-01T07:02:58.428Z",
+        "question": 4,
+        "comment_count": 0,
+        "content": "When patients are too athletically fit to make the test reliable",
+        "vote_count": 0,
+        "reply_count": 0
+    },
+    "model": "posts.answer",
+    "pk": 8
+},
+{
+    "fields": {
+        "updated": "2015-02-01T07:03:11.567Z",
+        "selected": false,
+        "author": 3,
+        "created": "2015-02-01T07:03:11.567Z",
+        "question": 5,
+        "comment_count": 0,
+        "content": "After a cardiac stress test is abnormal, before a coronary surgery, or in an acute coronary syndrome like unstable angina",
+        "vote_count": 0,
+        "reply_count": 0
+    },
+    "model": "posts.answer",
+    "pk": 9
+},
+{
+    "fields": {
+        "updated": "2015-02-01T07:03:23.027Z",
+        "selected": false,
+        "author": 4,
+        "created": "2015-02-01T07:03:23.027Z",
+        "question": 5,
+        "comment_count": 0,
+        "content": "Whenever a patient has chest pain",
+        "vote_count": 0,
+        "reply_count": 0
+    },
+    "model": "posts.answer",
+    "pk": 10
+},
+{
+    "fields": {
+        "vote": 1,
+        "time_stamp": "2015-02-01T07:32:36.098Z",
+        "question": 1,
+        "user": 2
+    },
+    "model": "posts.qvote",
+    "pk": 1
+},
+{
+    "fields": {
+        "vote": 1,
+        "time_stamp": "2015-02-01T07:33:15.342Z",
+        "question": 4,
+        "user": 5
+    },
+    "model": "posts.qvote",
+    "pk": 2
+},
+{
+    "fields": {
+        "answer": 1,
+        "vote": 1,
+        "user": 5,
+        "time_stamp": "2015-02-01T07:10:00.884Z"
+    },
+    "model": "posts.avote",
+    "pk": 1
+}
+]
