@@ -125,11 +125,11 @@
                 <!-- Comment -->
                 <div class="media">
                     <div class="pull-left" href="#">
-                        <a href="{{answer.upvote}}">
+                        <a href="/posts/upvote/answer/{{answer.id}}">
                             <img class="media-object" src="{% static "img/upArrow.png" %}" style="width:30px; height:30px" alt="">
                         </a>
                         <div class="numVotes">{{answer.vote_count}} </div>
-                        <a href="{{answer.upvote}}">
+                        <a href="/posts/downvote/answer/{{answer.id}}">
                             <img class="media-object" src="{% static "img/downArrow.png" %}" style="width:30px; height:30px" alt="">
                         </a>
                     </div>

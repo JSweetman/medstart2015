@@ -104,6 +104,9 @@ class Answer(Post):
 	def __unicode__(self):
 		return self.content[:10]
 
+	class Meta:
+		ordering = ['-vote_count', '-created']
+
 class QVote(models.Model):
 	"""
 	A vote on an object by a User.

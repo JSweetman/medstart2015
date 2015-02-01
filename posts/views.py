@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Question, Answer, QVote
+from .models import Question, Answer, QVote, AVote
 from django.shortcuts import get_object_or_404
 from .forms import QuestionForm, AnswerForm
 from django.http import HttpResponseRedirect
@@ -52,3 +52,20 @@ def question_downvote(request,id):
 		return HttpResponseRedirect('/posts/%d' %(question.id))
 	except IntegrityError:
 		return HttpResponseRedirect('/posts/%d' %(question.id))
+
+def answer_upvote(request, id):
+	answer = Answer.objects.get(id=id)
+	try:
+		AVote.create(request.user, answer, 1)
+		return HttpResponseRedirect('/posts/%d' %(answer.question.id))
+	except IntegrityError:
+		return HttpResponseRedirect('/posts/%d' %(answer.question.id))
+
+
+def answer_downvote(request,id):
+	answer = Answer.objects.get(id=id)
+	try:
+		AVote.create(request.user, answer, -1)
+		return HttpResponseRedirect('/posts/%d' %(answer.question.id))
+	except IntegrityError:
+		return HttpResponseRedirect('/posts/%d' %(answer.question.id))
