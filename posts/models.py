@@ -90,17 +90,16 @@ class Vote(models.Model):
 	"""
 	user = models.ForeignKey(User)
 	post = models.ForeignKey(Post)
-	object_id = models.PositiveIntegerField()
 	vote = models.SmallIntegerField(choices=SCORES)
 	time_stamp = models.DateTimeField(editable=False, auto_now=True)
 
 	@classmethod
 	def create(cls, user, post, vote):
 		if post.vote_set.filter(user=user):
-			return 'You have already voted on %s' %(post.title)
+			return 'You have already voted on %s' % (post.title)
 		else:
 			object_id= Vote.objects.all().count()
-			new_vote = Vote(user=user, post=post, object_id=object_id, vote=vote)
+			new_vote = Vote(user=user, post=post, vote=vote)
 			if new_vote.is_upvote():
 				new_vote.post.vote_count +=1
 			if new_vote.is_downvote():
@@ -116,10 +115,6 @@ class Vote(models.Model):
 
 	def is_downvote(self):
 		return self.vote == -1
-
-	def get_PostVote(self):
-		return self.post.vote_count
-
 
 class Tags(models.Model):
 	pass
