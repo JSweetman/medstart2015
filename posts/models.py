@@ -1,6 +1,5 @@
 from django.db import models
 from users.models import User
-from .models import Post
 
 # Create your models here.
 class Post(models.Model):
@@ -20,13 +19,13 @@ class Post(models.Model):
 	# The user that originally created the post.
 	author = models.ForeignKey(User, related_name='author')
 
-    # Indicates the information value of the post.
+	# Indicates the information value of the post.
  #    rank = models.FloatField(default=0, blank=True)
 
- 	# post status, i.e. open, answered, or closed
+	# post status, i.e. open, answered, or closed
 	status = models.IntegerField(choices=STATUS_CHOICES, default=OPEN)
 
-    # The type of the post: question, answer, comment.
+	# The type of the post: question, answer, comment.
 	type = models.IntegerField(choices=TYPE_CHOICES, db_index=True)
 
 	# Number of upvotes for the post
@@ -84,34 +83,40 @@ class Post(models.Model):
 		return self.title
 
 SCORES = (
-    (+1, '+1'),
-    (-1, '-1'),
+	(+1, '+1'),
+	(-1, '-1'),
 )
 
 class Vote(models.Model):
-    """
-    A vote on an object by a User.
-    """
-    user = models.ForeignKey(User)
-    post = models.ForeignKey(Post)
-    object_id = models.PositiveIntegerField()
-    object = generic.GenericForeignKey('content_type', 'object_id')
-    vote = models.SmallIntegerField(choices=SCORES)
-    time_stamp = models.DateTimeField(editable=False, default=now)
+	"""
+	A vote on an object by a User.
+	"""
+	user = models.ForeignKey(User)
+	post = models.ForeignKey(Post)
+	object_id = models.PositiveIntegerField()
+	vote = models.SmallIntegerField(choices=SCORES)
+	time_stamp = models.DateTimeField(editable=False, auto_now=True)
 
-    objects = VoteManager()
+	def __str__(self):
+		return '%s: %s on %s' % (self.user, self.vote, self.post)
 
-    class Meta:
-        db_table = 'votes'
-        # One vote per user per object
-        unique_together = (('user', 'content_type', 'object_id'),)
+	def is_upvote(self):
+		return self.vote == 1
 
-    def __str__(self):
-        return '%s: %s on %s' % (self.user, self.vote, self.object)
+	def upvote(self):
+		self.post.vote_count = self.post.vote_count + 1;
+		self.post.save()
 
-    def is_upvote(self):
-        return self.vote == 1
+	def is_downvote(self):
+		return self.vote == -1
 
-    def is_downvote(self):
-        return self.vote == -1
+	def downvote(self):
+		self.post.vote_count = self.post.vote_count - 1;
+		self.post.save()
 
+	def get_PostVote(self):
+		return self.post.vote_count
+
+
+class Tags(models.Model):
+	pass

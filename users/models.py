@@ -14,7 +14,7 @@ class UserProfile(models.Model):
     picture = models.ImageField(upload_to=get_upload_file_name, blank=True)
     bio = models.CharField(verbose_name = 'bio', max_length = 255, default='', blank=True)
     ## TODO make drop down
-    school = models.CharField(verbose_name = 'school', max_length = 50, default='', blank=False)
+    school = models.CharField(verbose_name = 'school', max_length = 50, default='', blank=True)
     location = models.CharField(verbose_name = 'location', max_length = 50, default='', blank=True)
     specialty = models.CharField(verbose_name = 'specialty', max_length = 50, default='', blank=True)
     ## TODO make drop down
