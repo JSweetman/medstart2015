@@ -31,9 +31,6 @@ class Post(models.Model):
 	# Number of upvotes for the post
 	vote_count = models.IntegerField(default=0, blank=True, db_index=True)
 
-	# The number of views for the post.
-	# view_count = models.IntegerField(default=0, blank=True)
-
 	# The number of replies that a post has.
 	reply_count = models.IntegerField(default=0, blank=True)
 
@@ -97,22 +94,28 @@ class Vote(models.Model):
 	vote = models.SmallIntegerField(choices=SCORES)
 	time_stamp = models.DateTimeField(editable=False, auto_now=True)
 
+	@classmethod
+	def create(cls, user, post, vote):
+		if post.vote_set.filter(user=user):
+			return 'You have already voted on %s' %(post.title)
+		else:
+			object_id= Vote.objects.all().count()
+			new_vote = Vote(user=user, post=post, object_id=object_id, vote=vote)
+			if new_vote.is_upvote():
+				new_vote.post.vote_count +=1
+			if new_vote.is_downvote():
+				new_vote.post.vote_count -=1
+			new_vote.save()
+			return new_vote
+
 	def __str__(self):
 		return '%s: %s on %s' % (self.user, self.vote, self.post)
 
 	def is_upvote(self):
 		return self.vote == 1
 
-	def upvote(self):
-		self.post.vote_count = self.post.vote_count + 1;
-		self.post.save()
-
 	def is_downvote(self):
 		return self.vote == -1
-
-	def downvote(self):
-		self.post.vote_count = self.post.vote_count - 1;
-		self.post.save()
 
 	def get_PostVote(self):
 		return self.post.vote_count
