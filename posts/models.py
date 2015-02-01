@@ -9,7 +9,7 @@ class Post(models.Model):
 	updated = models.DateTimeField(auto_now=True)
 	created = models.DateTimeField(auto_now_add=True)
 
-	author = models.ForeignKey(User, blank=False)
+	author = models.ForeignKey(User, null=False, blank=False)
 
 	# Number of upvotes for the post
 	vote_count = models.IntegerField(default=0, blank=True, db_index=True)

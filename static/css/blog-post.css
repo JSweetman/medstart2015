@@ -12,10 +12,10 @@ footer {
     margin: 50px 0;
 }
 
-#numVotes{
-	padding-left:10px;
-	padding-top:10px;
+.numVotes{
+	margin-left: 35%;
 }
+
 
 .media-heading{
 

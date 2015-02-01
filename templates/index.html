@@ -40,13 +40,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">{{ content }}</a>
+                <a class="navbar-brand" href="/">{{ content }}</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <a href="/posts/ask">Ask</a>
                     </li>
                     <li>
                         <a href="#">Services</a>
@@ -63,7 +63,7 @@
 
     <!-- Page Content -->
     <div class="container">
-
+    {% block content %}
         <div class="row">
 
             <!-- Blog Entries Column -->
@@ -75,16 +75,25 @@
 
                 <!-- First Blog Post -->
                {% for question in question_set %}
+               <div class="questionVote pull-left" href="#">
+                        <a href="{{question.upvote}}">
+                            <img class="media-object" src="{% static "img/upArrow.png" %}" style="width:30px; height:30px" alt="">
+                        </a>
+                        <div class="numVotes">{{question.vote_count}} </div>
+                        <a href="{{question.upvote}}">
+                            <img class="media-object" src="{% static "img/downArrow.png" %}" style="width:30px; height:30px" alt="">
+                        </a>
+                </div>
                     <h2>
-                        <a href="#">{{ question.title }}</a>
+                        <a href="/posts/{{question.id}}">{{ question.title }}</a>
                     </h2>
                     <p class="lead">
                         by <a href="index.php">{{ question.author }}</a>
                     </p>
-                    <p><span class="glyphicon glyphicon-time"></span> {{ question.created }}</p>
-                    <hr>
+                    <p>{{ question.peek }}</p>
                    
-                    <p> {{ question.peek }}</p>
+                    <p><span class="glyphicon glyphicon-time"></span> {{ question.created }} </p>
+                    <hr>
                 {% endfor %}
                 <!-- Pager -->
                 <ul class="pager">
@@ -157,7 +166,7 @@
 
         </div>
         <!-- /.row -->
-
+        {% endblock %}
         <hr>
 
         <!-- Footer -->

@@ -41,6 +41,7 @@ INSTALLED_APPS = (
 
     #third party
     'django_extensions',
+    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
