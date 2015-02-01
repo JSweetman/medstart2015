@@ -76,6 +76,13 @@ class Post(models.Model):
 		delta = const.now() - self.creation_date
 		return delta.days
 
+	@property
+	def set_votecount(self):
+		self.vote_count = self.vote_set.filter(vote=1).count()
+		self.save()
+		return self.vote_count
+
+
 	def __unicode__(self):
 		return self.title
 
@@ -98,7 +105,7 @@ class Vote(models.Model):
 		if post.vote_set.filter(user=user):
 			return 'You have already voted on %s' % (post.title)
 		else:
-			object_id= Vote.objects.all().count()
+			print 'hello'
 			new_vote = Vote(user=user, post=post, vote=vote)
 			if new_vote.is_upvote():
 				new_vote.post.vote_count +=1
