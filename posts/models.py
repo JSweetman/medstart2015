@@ -95,6 +95,9 @@ class Vote(models.Model):
 	"""
 	A vote on an object by a User.
 	"""
+	class Meta:
+		unique_together= ('user', 'post')
+
 	user = models.ForeignKey(User)
 	post = models.ForeignKey(Post)
 	vote = models.SmallIntegerField(choices=SCORES)
@@ -102,17 +105,13 @@ class Vote(models.Model):
 
 	@classmethod
 	def create(cls, user, post, vote):
-		if post.vote_set.filter(user=user):
-			return 'You have already voted on %s' % (post.title)
-		else:
-			print 'hello'
-			new_vote = Vote(user=user, post=post, vote=vote)
-			if new_vote.is_upvote():
-				new_vote.post.vote_count +=1
-			if new_vote.is_downvote():
-				new_vote.post.vote_count -=1
-			new_vote.save()
-			return new_vote
+		new_vote = Vote(user=user, post=post, vote=vote)
+		if new_vote.is_upvote():
+			new_vote.post.vote_count +=1
+		if new_vote.is_downvote():
+			new_vote.post.vote_count -=1
+		new_vote.save()
+		return new_vote
 
 	def __str__(self):
 		return '%s: %s on %s' % (self.user, self.vote, self.post)
